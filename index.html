@@ -1,0 +1,539 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Simple Web Development</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Thiết lập chung */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            color: #222;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 12px 6%;
+            background: #111827;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-list {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-list li a {
+            color: white;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-list li a:hover {
+            color: #60a5fa;
+        }
+
+        .rightNav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #search {
+            width: 150px;
+            min-width: 0;
+            padding: 9px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        #search:focus {
+            border-color: #60a5fa;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid white;
+            border-radius: 8px;
+            background: transparent;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: white;
+            color: #111827;
+        }
+
+        .btn-sm {
+            padding: 8px 12px;
+        }
+
+        /* Hero section */
+        .firstsection {
+            display: flex;
+            align-items: center;
+            min-height: 420px;
+            padding: 60px 8%;
+            background: linear-gradient(135deg, #dbeafe, #eff6ff);
+        }
+
+        .box-main {
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .firstHalf {
+            width: 100%;
+        }
+
+        .eyebrow {
+            margin-bottom: 12px;
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .text-big {
+            margin-bottom: 20px;
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .text-small {
+            font-size: 17px;
+            color: #4b5563;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn-primary {
+            border-color: #2563eb;
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+
+        /* C Programming section */
+        .secondsection {
+            padding: 60px 8%;
+            background: #1e40af;
+            color: white;
+        }
+
+        .secondsection .box-main {
+            min-height: 250px;
+        }
+
+        .secondHalf {
+            width: 100%;
+        }
+
+        .secondsection .text-small {
+            color: #dbeafe;
+        }
+
+        /* Java section */
+        .section {
+            max-width: 1100px;
+            min-height: 350px;
+            margin: 40px auto;
+            padding: 40px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .section-Left {
+            flex-direction: row-reverse;
+        }
+
+        .paras {
+            flex: 1;
+        }
+
+        .sectionTag {
+            margin-bottom: 16px;
+        }
+
+        .thumbnail {
+            flex: 0 1 320px;
+        }
+
+        .thumbnail img {
+            display: block;
+            width: 100%;
+            max-width: 320px;
+            margin: auto;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+        /* Features */
+        .features {
+            padding: 60px 8%;
+            background: #f3f4f6;
+        }
+
+        .features h2 {
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .feature-list {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .feature-card {
+            flex: 1 1 220px;
+            padding: 25px;
+            border-radius: 14px;
+            background: white;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            color: #1d4ed8;
+        }
+
+        /* Footer */
+        footer {
+            padding: 25px 15px;
+            background: #111827;
+            color: white;
+            text-align: center;
+        }
+
+        .text-footer {
+            font-size: 14px;
+            color: #d1d5db;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .navbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-list {
+                justify-content: center;
+            }
+
+            .section {
+                margin: 20px auto;
+                padding: 35px 6%;
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 16px;
+            }
+
+            .nav-list {
+                gap: 12px 18px;
+            }
+
+            .nav-list li a {
+                font-size: 14px;
+            }
+
+            .rightNav {
+                width: 100%;
+                justify-content: center;
+            }
+
+            #search {
+                flex: 1;
+                max-width: 260px;
+            }
+
+            .firstsection,
+            .secondsection {
+                padding: 45px 7%;
+            }
+
+            .section,
+            .section-Left {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .thumbnail {
+                flex-basis: auto;
+                width: 100%;
+            }
+
+            .thumbnail img {
+                max-height: 260px;
+            }
+
+            .text-small {
+                font-size: 16px;
+            }
+
+            .features h2 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#home" class="logo" aria-label="Trang chủ">
+            <img
+                src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=120&q=80"
+                alt="Logo công nghệ"
+            >
+        </a>
+
+        <ul class="nav-list">
+            <li><a href="#web">Web Technology</a></li>
+            <li><a href="#program">C Programming</a></li>
+            <li><a href="#course">Java</a></li>
+        </ul>
+
+        <form class="rightNav" id="searchForm">
+            <input
+                type="search"
+                name="search"
+                id="search"
+                placeholder="Tìm kiếm..."
+                aria-label="Từ khóa tìm kiếm"
+            >
+            <button type="submit" class="btn btn-sm">Search</button>
+        </form>
+    </nav>
+
+    <!-- Section 1: Web Technology -->
+    <section class="firstsection" id="home">
+        <div class="box-main">
+            <div class="firstHalf">
+                <p class="eyebrow">Khám phá thế giới công nghệ</p>
+
+                <h1 class="text-big" id="web">
+                    Web Technology
+                </h1>
+
+                <p class="text-small">
+                    HTML là viết tắt của HyperText Markup Language,
+                    ngôn ngữ đánh dấu được sử dụng để xây dựng cấu trúc
+                    trang web. HTML giúp trình duyệt tổ chức văn bản,
+                    hình ảnh, liên kết và các thành phần nội dung.
+                    Khi kết hợp HTML với CSS và JavaScript, chúng ta
+                    có thể tạo nên những trang web đẹp mắt và có tính
+                    tương tác.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#course" class="btn btn-primary">
+                        Khám phá khóa học
+                    </a>
+                    <a href="#features" class="btn" style="color:#1d4ed8;border-color:#1d4ed8">
+                        Tìm hiểu thêm
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: C Programming -->
+    <section class="secondsection">
+        <div class="box-main">
+            <div class="secondHalf">
+                <h2 class="text-big" id="program">
+                    C Programming
+                </h2>
+
+                <p class="text-small">
+                    C là ngôn ngữ lập trình thủ tục được phát triển bởi
+                    Dennis Ritchie. Ngôn ngữ này cung cấp khả năng làm việc
+                    với bộ nhớ ở mức thấp và thường được sử dụng trong
+                    phát triển hệ điều hành, trình biên dịch và các phần
+                    mềm hệ thống. Học C cũng giúp người học hiểu rõ hơn
+                    về biến, vòng lặp, hàm và cách máy tính xử lý dữ liệu.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Java -->
+    <section class="section section-Left" id="course">
+        <div class="paras">
+            <h2 class="sectionTag text-big">Java Programming</h2>
+
+            <p class="sectionSubTag text-small">
+                Java là ngôn ngữ lập trình hướng đối tượng phổ biến.
+                Mã Java thường được biên dịch thành bytecode và chạy
+                trên Java Virtual Machine (JVM), giúp chương trình
+                có thể hoạt động trên nhiều nền tảng hỗ trợ JVM.
+                Java được sử dụng trong phát triển ứng dụng doanh nghiệp,
+                phần mềm máy chủ và nhiều loại ứng dụng khác.
+            </p>
+        </div>
+
+        <div class="thumbnail">
+            <img
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=700&q=80"
+                alt="Máy tính xách tay dùng để lập trình"
+                loading="lazy"
+            >
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <h2>Những gì bạn sẽ học</h2>
+
+        <div class="feature-list">
+            <article class="feature-card">
+                <h3>HTML</h3>
+                <p>
+                    Xây dựng cấu trúc trang web bằng các thẻ và phần tử HTML.
+                </p>
+            </article>
+
+            <article class="feature-card">
+                <h3>CSS</h3>
+                <p>
+                    Tạo màu sắc, khoảng cách và bố cục hấp dẫn cho website.
+                </p>
+            </article>
+
+            <article class="feature-card">
+                <h3>Flexbox</h3>
+                <p>
+                    Sắp xếp các phần tử và căn chỉnh nội dung linh hoạt.
+                </p>
+            </article>
+
+            <article class="feature-card">
+                <h3>Responsive</h3>
+                <p>
+                    Tối ưu bố cục để trang web hiển thị tốt trên nhiều màn hình.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="text-footer">
+            Copyright &copy; 2026 - Simple Web Development. All rights reserved.
+        </p>
+    </footer>
+
+    <script>
+        document.getElementById("searchForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const keyword = document.getElementById("search").value
+                .trim()
+                .toLowerCase();
+
+            if (!keyword) {
+                alert("Vui lòng nhập từ khóa tìm kiếm.");
+                return;
+            }
+
+            const sections = [
+                { name: "Web Technology", id: "web" },
+                { name: "C Programming", id: "program" },
+                { name: "Java Programming", id: "course" }
+            ];
+
+            const result = sections.find(section =>
+                section.name.toLowerCase().includes(keyword)
+            );
+
+            if (result) {
+                document.getElementById(result.id).scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            } else {
+                alert("Không tìm thấy mục phù hợp. Hãy thử HTML, C hoặc Java.");
+            }
+        });
+    </script>
+
+</body>
+</html>
